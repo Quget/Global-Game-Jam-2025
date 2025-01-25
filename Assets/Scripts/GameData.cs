@@ -12,8 +12,8 @@ public class GameData
         set {maxBubbles = value; }
     }
     // bubbleTimer: The life span of a bubble in seconds
-    private int bubbleTimer = 5;
-    public int BubbleTimer
+    private float bubbleTimer = 5;
+    public float BubbleTimer
     {
         get {return bubbleTimer; }
         set {bubbleTimer = value; }
@@ -27,11 +27,16 @@ public class GameData
     }
     public void SpawnBubble(Bubble bubble)
     {
-        if (bubbles.Count < maxBubbles)
         {
             bubbles.Add(bubble);
         }
     }
+
+    public bool CanSpawnBubble()
+    {
+        return (bubbles.Count < maxBubbles);
+    }
+
     // health: Starting health of the player
     private int health = 3;
     public int Health 
@@ -80,13 +85,13 @@ public class GameData
         powerUp += 1;
     }
 
-    private List<Item> inventory;
+    private List<Item> inventory = new List<Item>();
     public List<Item> Inventory{
         get {return inventory; }
         set {inventory = value; }
     }
 
-    private List<Item> itemsInWorld;
+    private List<Item> itemsInWorld = new List<Item>();
     public List<Item> ItemsInWorld {
         get {return itemsInWorld; }
         set {itemsInWorld = value; }
