@@ -10,6 +10,9 @@ public class BubbleShooter : MonoBehaviour
 	[SerializeField]
 	private Bubble bubblePrefab;
 
+	[SerializeField]
+	private AudioClip shootClip;
+
 	private new Rigidbody rigidbody;
 
 	private void Awake()
@@ -26,14 +29,18 @@ public class BubbleShooter : MonoBehaviour
 
 	private void AttackAction_performed(InputAction.CallbackContext obj)
 	{
-		if (GameManager.Instance.gameData.PowerUp >= 1) {
+		if (GameManager.Instance.gameData.PowerUp >= 1)
+		{
 			if (GameManager.Instance.gameData.CanSpawnBubble())
 			{
-				var spawnedBubble = GameObject.Instantiate<Bubble>(bubblePrefab, transform.position + (transform.forward.normalized * 2f), transform.rotation);
+				var spawnPosition = transform.position + (transform.forward.normalized * 2f);
+				var spawnedBubble = GameObject.Instantiate<Bubble>(bubblePrefab, spawnPosition, transform.rotation);
 				GameManager.Instance.gameData.SpawnBubble(spawnedBubble);
 
 				spawnedBubble.BubbleLife = GameManager.Instance.gameData.BubbleTimer;
 				spawnedBubble.BubbleDirection = transform.forward;
+
+				AudioSource.PlayClipAtPoint(shootClip, spawnPosition);
 			}
 			for (int i = 0; i < GameManager.Instance.gameData.Bubbles.Count; i++)
 			{

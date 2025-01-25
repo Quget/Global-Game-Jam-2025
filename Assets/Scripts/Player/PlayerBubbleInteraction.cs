@@ -21,7 +21,6 @@ public class PlayerBubbleInteraction : MonoBehaviour
 			if(!bubble.IsDestroyed() && collision.collider.transform.parent?.gameObject == bubble.gameObject)
 			{
 				Destroy(bubble.gameObject);
-				GameManager.Instance.gameData.Bubbles.Remove(bubble);
 				rigidbody.AddForceAtPosition(Vector3.up * forceMultiplier, collision.contacts[0].point);
 				break;
 			}

@@ -13,9 +13,19 @@ public class Spikes : MonoBehaviour
 	private bool canHurt = false;
 
 	private Player player;
+
+	[SerializeField]
+	private GameObject bubbleEnclosure;
+
 	public void Awake() 
 	{ 
 		player = FindFirstObjectByType<Player>();
+		UpdateBubbleEnclosure();
+	}
+
+	public void UpdateBubbleEnclosure()
+	{
+		bubbleEnclosure.SetActive(isInBubble);
 	}
 
 	private void Update()
@@ -56,8 +66,10 @@ public class Spikes : MonoBehaviour
 				if (bubble != null)
 				{
 					isInBubble = true;
-					bubble.Entrap(transform, () => {
+					UpdateBubbleEnclosure();
+					bubble.Entrap(this.gameObject, () => {
 						isInBubble = false;
+						UpdateBubbleEnclosure();
 					});
 				}
 			}
