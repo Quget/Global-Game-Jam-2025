@@ -9,7 +9,10 @@ public class Item : MonoBehaviour
     private InputAction interactAction;
     private float distanceToBeInRange = 2;
 
-    void Awake()
+	[SerializeField]
+	private AudioClip itemPickUpClip;
+
+	void Awake()
     {
         player = FindFirstObjectByType<Player>();
         GameManager.Instance.gameData.AddItemToWorld(this);
@@ -22,40 +25,24 @@ public class Item : MonoBehaviour
         var distance = Vector3.Distance(player.transform.position, transform.position);
 		if (distance < distanceToBeInRange)
 		{
-            Debug.Log("Old Inventory: " + GameManager.Instance.gameData.Inventory.Count);
-            Debug.Log("Old Items in world: " + GameManager.Instance.gameData.ItemsInWorld.Count);
-            interactAction.performed -= InteractAction_performed;
-            GameManager.Instance.gameData.PickUpItem(this);
-            Destroy(this.gameObject);
-            Debug.Log("Item picked up");
-            Debug.Log("New Inventory: " + GameManager.Instance.gameData.Inventory.Count);
-            Debug.Log("New Items in world: " + GameManager.Instance.gameData.ItemsInWorld.Count);			
+			PickedUp();
 		}
 	}
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.transform.parent.gameObject == player.gameObject)
 		{
-            Debug.Log("Old Inventory: " + GameManager.Instance.gameData.Inventory.Count);
-            Debug.Log("Old Items in world: " + GameManager.Instance.gameData.ItemsInWorld.Count);
-            interactAction.performed -= InteractAction_performed;
-            GameManager.Instance.gameData.PickUpItem(this);
-            Destroy(this.gameObject);
-            Debug.Log("New Inventory: " + GameManager.Instance.gameData.Inventory.Count);
-            Debug.Log("New Items in world: " + GameManager.Instance.gameData.ItemsInWorld.Count);
-        }
+			PickedUp();
+
+		}
+	}
+
+	private void PickedUp()
+	{
+		interactAction.performed -= InteractAction_performed;
+		AudioSource.PlayClipAtPoint(itemPickUpClip, player.transform.position);
+		GameManager.Instance.gameData.PickUpItem(this);
+		Destroy(this.gameObject);
 	}
 }
