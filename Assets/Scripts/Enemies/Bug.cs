@@ -33,10 +33,14 @@ namespace DubbelBubbel.Enemies
 
 		public void Update()
 		{
-			if((Vector3.Distance(transform.position,playerTarget.transform.position) < minDistance && !playerFound) ||
+			if ((Vector3.Distance(transform.position, playerTarget.transform.position) < minDistance && !playerFound) ||
 				Vector3.Distance(transform.position, playerTarget.transform.position) < minDistanceWhenPlayerIsFound && playerFound)
 			{
-				movement = transform.position + (transform.forward  * speed * Time.deltaTime);
+
+				if (Physics.Raycast(transform.position + (transform.forward * 1.5f), Vector3.down, 2))
+				{
+					movement = transform.position + (transform.forward * speed * Time.deltaTime);
+				}
 				playerFound = true;
 			}
 		}

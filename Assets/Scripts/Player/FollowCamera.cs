@@ -56,7 +56,6 @@ namespace DubbelBubbel.Player
 
             //var lookVector = lookAction.ReadValue<Vector2>().normalized;
             //Todo do something with lookvector
-
             Quaternion desiredrotation = TargetRotation * Quaternion.Euler(rotationOffset);
 			smoothedRotation = Quaternion.Lerp(transform.rotation, desiredrotation, rotationSpeed * Time.deltaTime);
 		}
