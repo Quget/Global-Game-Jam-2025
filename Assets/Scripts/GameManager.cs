@@ -1,4 +1,5 @@
 using DubbelBubbel.Player;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -32,6 +33,9 @@ public class GameManager : MonoBehaviour
 
 	private void GameData_OnPlayerDeath(object sender, System.EventArgs e)
 	{
-		Destroy(player.gameObject);
+		if (!player.IsDestroyed())
+		{
+			Destroy(player.gameObject);
+		}
 	}
 }
