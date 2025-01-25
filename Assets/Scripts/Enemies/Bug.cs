@@ -76,7 +76,7 @@ namespace DubbelBubbel.Enemies
 
 			if (!isInBubble)
 			{
-				if (GameManager.Instance.gameData.PowerUp >= 3)
+				if (GameManager.Instance.gameData.PowerUp >= 2)
 				{
 					var bubble = collision.collider.GetComponentInParent<Bubble>();
 					if (bubble != null)
