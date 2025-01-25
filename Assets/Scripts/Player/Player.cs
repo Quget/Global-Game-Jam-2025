@@ -21,11 +21,6 @@ namespace DubbelBubbel.Player
 
 		private bool isOnGround = false;
 
-		private float jumpCooldown = 0.1f;
-		private float jumpTimer = 0;
-
-		private bool isJumping = false;
-
 		InputAction moveAction;
 		InputAction jumpAction;
 
@@ -33,6 +28,7 @@ namespace DubbelBubbel.Player
 		{
 			moveAction = InputSystem.actions.FindAction("Move");
 			jumpAction = InputSystem.actions.FindAction("Jump");
+			jumpAction.performed += JumpAction_performed;
 
 			rigidbody = GetComponent<Rigidbody>();
 			movement = transform.position;
@@ -48,28 +44,18 @@ namespace DubbelBubbel.Player
 			MovementUpdate();
 		}
 
+		private void JumpAction_performed(InputAction.CallbackContext obj)
+		{
+			if (isOnGround)
+			{
+				rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+			}
+		}
+
 		private void MovementInput()
 		{
 			var moveInput = moveAction.ReadValue<Vector2>().normalized;
 			movement = transform.position + (transform.forward * moveInput.y * speed * Time.deltaTime);
-
-			if (jumpAction.IsPressed() && isOnGround && !isJumping)
-			{
-				rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-				isOnGround = false;
-				jumpTimer = 0;
-				isJumping = true;
-			}
-
-			if (isJumping)
-			{
-				jumpTimer += Time.deltaTime;
-				if(jumpTimer >= jumpCooldown)
-				{
-					isJumping = false;
-				}
-			}
-
 			rotation = (moveInput.x * rotationSpeed) * Time.deltaTime;
 		}
 
@@ -96,6 +82,11 @@ namespace DubbelBubbel.Player
 		private void OnCollisionExit(Collision collision)
 		{
 			isOnGround = false;
+		}
+
+		private void OnDestroy()
+		{
+			jumpAction.performed -= JumpAction_performed;
 		}
 	}
 }

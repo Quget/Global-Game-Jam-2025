@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour
 {
+
+    [SerializeField]
+    private float bubbleForce = 25;
     private Rigidbody rigidbody;
-    private Vector3 bubblePosition = Vector3.zero;
-    public Vector3 BubblePosition
-    {
-        get {return bubblePosition; }
-        set {bubblePosition = value; }
-    }
     private Vector3 bubbleDirection;
     public Vector3 BubbleDirection
     {
@@ -40,7 +37,7 @@ public class Bubble : MonoBehaviour
 
     void Start()
     {
-        rigidbody.AddForce(bubbleDirection * 1000, ForceMode.Impulse);
+        rigidbody.AddForce(bubbleDirection * bubbleForce, ForceMode.Impulse);
     }
 
     // Update is called once per frame
