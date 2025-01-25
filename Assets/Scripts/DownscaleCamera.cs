@@ -42,8 +42,8 @@ public class DownscaleCamera : MonoBehaviour
         backgroundImage.transform.localPosition = Vector3.zero;
         backgroundImage.rectTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
 
-        backgroundImage.color = Color.black;
-        // backgroundImage.material = backgroundMaterial;
+        // backgroundImage.color = Color.black;
+        backgroundImage.material = backgroundMaterial;
 
         RawImage renderImage = new GameObject("Pixel Result").AddComponent<RawImage>();
         renderImage.transform.SetParent(canvas.transform);
