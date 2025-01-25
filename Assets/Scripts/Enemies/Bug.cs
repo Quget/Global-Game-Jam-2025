@@ -7,16 +7,19 @@ namespace DubbelBubbel.Enemies
 	public class Bug : MonoBehaviour
 	{
 		[SerializeField]
-		private float minDistance = 20;
+		private float minDistance = 10;
 
 		[SerializeField]
 		private float minDistanceWhenPlayerIsFound = 50;
 
 		[SerializeField]
-		private float speed = 20;
+		private float speed = 3;
 
 		[SerializeField]
-		private float forceMultiplier = 600;
+		private float forceMultiplier = 200;
+
+		[SerializeField]
+		private GameObject bubbleEnclosure;
 
 		private new Rigidbody rigedbody;
 		private Player.Player player;
@@ -32,6 +35,12 @@ namespace DubbelBubbel.Enemies
 			rigedbody = GetComponent<Rigidbody>();
 			player = FindFirstObjectByType<Player.Player>();
 			movement = transform.position;
+			UpdateBubbleEnclosure();
+		}
+
+		public void UpdateBubbleEnclosure()
+		{
+			bubbleEnclosure.SetActive(isInBubble);
 		}
 
 		public void FixedUpdate()
@@ -69,7 +78,7 @@ namespace DubbelBubbel.Enemies
 				else
 				{
 					player.GetComponent<Rigidbody>().AddForce((transform.forward.normalized + (Vector3.up * 0.25f)) * forceMultiplier);
-					GameManager.Instance.gameData.LoseHealth();
+					GameManager.Instance.gameData.LoseHealth(); 
 					return;
 				}
 			}
@@ -82,10 +91,10 @@ namespace DubbelBubbel.Enemies
 					if (bubble != null)
 					{
 						isInBubble = true;
-						rigedbody.isKinematic = true;
+						UpdateBubbleEnclosure();
 						bubble.Entrap(transform, () => {
 							isInBubble = false;
-							rigedbody.isKinematic = false;
+							UpdateBubbleEnclosure();
 						});
 					}
 				}

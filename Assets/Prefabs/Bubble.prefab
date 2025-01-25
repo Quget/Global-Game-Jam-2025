@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubbleForce: 8
+  bubbleRenderer: {fileID: 5174140096894119067}
 --- !u!54 &6893796246003021284
 Rigidbody:
   m_ObjectHideFlags: 0

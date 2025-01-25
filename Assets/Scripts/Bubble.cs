@@ -8,7 +8,12 @@ public class Bubble : MonoBehaviour
 
     [SerializeField]
     private float bubbleForce = 25;
+
+    [SerializeField]
+    private Renderer bubbleRenderer = null;
+
     private Rigidbody rigidbody;
+
     private Vector3 bubbleDirection;
     public Vector3 BubbleDirection
     {
@@ -68,9 +73,17 @@ public class Bubble : MonoBehaviour
 	public void Entrap(Transform theEntrapped, Action onLifeEnd)
     {
         this.onLifeEnd = onLifeEnd;
+        BubbleLife = GameManager.Instance.gameData.BubbleTimer;
+        bubbleRenderer.gameObject.SetActive(false);
+		//Destroy(this.gameObject);
+		/*
         rigidbody.isKinematic = true;
-		BubbleLife = GameManager.Instance.gameData.BubbleTimer;
 		transform.parent = theEntrapped;
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = Vector3.zero;*/
+	}
+
+	private void OnDestroy()
+	{
+        onLifeEnd = null;
 	}
 }
