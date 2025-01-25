@@ -29,6 +29,7 @@ public class Spikes : MonoBehaviour
 			else
 			{
 				canHurt = false;
+				hurtTime = 0;
 			}
 		}
 	}
@@ -49,11 +50,16 @@ public class Spikes : MonoBehaviour
 
 		if (!isInBubble)
 		{
-			var bubble = collision.collider.GetComponentInParent<Bubble>();
-			if (bubble != null)
+			if (GameManager.Instance.gameData.PowerUp >= 3)
 			{
-				isInBubble = true;
-				bubble.Entrap(transform);
+				var bubble = collision.collider.GetComponentInParent<Bubble>();
+				if (bubble != null)
+				{
+					isInBubble = true;
+					bubble.Entrap(transform, () => {
+						isInBubble = false;
+					});
+				}
 			}
 		}
 

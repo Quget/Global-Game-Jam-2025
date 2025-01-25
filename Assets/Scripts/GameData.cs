@@ -90,6 +90,12 @@ public class GameData
         set {powerUp = value; }
     }
 
+    private List<PowerUp> powerUpItems = new List<PowerUp>();
+    public List<PowerUp> PowerUpItems {
+        get {return powerUpItems; }
+        set {powerUpItems = value; }
+    }
+
     public void PickUpPowerUp()
     {
         powerUp += 1;
