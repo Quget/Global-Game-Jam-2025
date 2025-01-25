@@ -1,4 +1,5 @@
 using DubbelBubbel.Player;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DubbelBubbel.Enemies
@@ -35,7 +36,7 @@ namespace DubbelBubbel.Enemies
 
 		public void FixedUpdate()
 		{
-			if(isInBubble)
+			if(isInBubble || playerTarget.IsDestroyed())
 				return;
 
 			if ((Vector3.Distance(transform.position, playerTarget.transform.position) < minDistance && !playerFound) ||
@@ -59,15 +60,22 @@ namespace DubbelBubbel.Enemies
 
 		public void OnCollisionEnter(Collision collision)
 		{
-			if (!isInBubble)
+			if (collision.collider.transform.parent.gameObject == playerTarget.gameObject)
 			{
-				if (collision.collider.transform.parent.gameObject == playerTarget.gameObject)
+				if (isInBubble)
+				{
+					Destroy(this.gameObject);
+				}
+				else
 				{
 					playerTarget.GetComponent<Rigidbody>().AddForce((transform.forward.normalized + (Vector3.up * 0.25f)) * forceMultiplier);
 					GameManager.Instance.gameData.LoseHealth();
 					return;
 				}
+			}
 
+			if (!isInBubble)
+			{
 				var bubble = collision.collider.GetComponentInParent<Bubble>();
 				if (bubble != null)
 				{

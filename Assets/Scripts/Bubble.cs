@@ -53,7 +53,7 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    public void Entrap(Transform theEntrapped, Action onLifeEnd)
+	public void Entrap(Transform theEntrapped, Action onLifeEnd)
     {
         this.onLifeEnd = onLifeEnd;
         rigidbody.isKinematic = true;

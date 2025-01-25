@@ -155,8 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistance: 5
-  distanceToLosePlayer: 50
-  speed: 10
+  minDistanceWhenPlayerIsFound: 50
+  speed: 2
+  forceMultiplier: 600
 --- !u!54 &6182803429026880352
 Rigidbody:
   m_ObjectHideFlags: 0
