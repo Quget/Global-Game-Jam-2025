@@ -25,7 +25,7 @@ public class BubbleShooter : MonoBehaviour
 		if (GameManager.Instance.gameData.PowerUp >= 1) {
 			if (GameManager.Instance.gameData.CanSpawnBubble())
 			{
-				var spawnedBubble = GameObject.Instantiate<Bubble>(bubblePrefab, transform.position + transform.forward.normalized + new Vector3(0,0.25f,0), transform.rotation);
+				var spawnedBubble = GameObject.Instantiate<Bubble>(bubblePrefab, transform.position + (transform.forward.normalized * 1.1f), transform.rotation);
 				GameManager.Instance.gameData.SpawnBubble(spawnedBubble);
 
 				spawnedBubble.BubbleLife = GameManager.Instance.gameData.BubbleTimer;
