@@ -44,18 +44,23 @@ public class PowerUp : MonoBehaviour
 		}
 	}
 
-    // public void OnCollisionEnter(Collision collision)
-    // {
-    //     if (collision.collider.transform.parent.gameObject == player.gameObject)
+	private void OnDestroy()
+	{
+		interactAction.performed -= InteractAction_performed;
+	}
+
+	// public void OnCollisionEnter(Collision collision)
+	// {
+	//     if (collision.collider.transform.parent.gameObject == player.gameObject)
 	// 	{
-    //         Debug.Log("Old PowerUp: " + GameManager.Instance.gameData.PowerUp);
-    //         interactAction.performed -= InteractAction_performed;
-    //         GameManager.Instance.gameData.PowerUpItems.Remove(this);
-    //         GameManager.Instance.gameData.PickUpPowerUp();
-    //         Destroy(this.gameObject);
-    //         Debug.Log("Powerup picked up");
-    //         Debug.Log("New PowerUp: " + GameManager.Instance.gameData.PowerUp);
-    //     }
+	//         Debug.Log("Old PowerUp: " + GameManager.Instance.gameData.PowerUp);
+	//         interactAction.performed -= InteractAction_performed;
+	//         GameManager.Instance.gameData.PowerUpItems.Remove(this);
+	//         GameManager.Instance.gameData.PickUpPowerUp();
+	//         Destroy(this.gameObject);
+	//         Debug.Log("Powerup picked up");
+	//         Debug.Log("New PowerUp: " + GameManager.Instance.gameData.PowerUp);
+	//     }
 	// }
-    
+
 }

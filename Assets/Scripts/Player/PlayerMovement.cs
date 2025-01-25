@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,9 @@ namespace DubbelBubbel.Player
 
 		[SerializeField]
 		private AudioSource footSource;
+
+		[SerializeField]
+		private Animator animator;
 
 		private Vector3 movement = Vector3.zero;
 		private float rotation = 0;
@@ -61,6 +65,7 @@ namespace DubbelBubbel.Player
 				footSource.Stop();
 				AudioSource.PlayClipAtPoint(jumpClip, transform.position);
 				AudioSource.PlayClipAtPoint(jumpVoiceClip, transform.position);
+				animator.SetTrigger("Jump");
 			}
 		}
 
@@ -72,7 +77,18 @@ namespace DubbelBubbel.Player
 			{
 				footSource.clip = GetRandomFootstepClip();
 				footSource.Play();
+
 			}
+
+			if (moveInput.magnitude > 0 && isOnGround )
+			{
+				animator.SetTrigger("Walk");
+			}
+			else if(isOnGround && moveInput.magnitude == 0 /*&& animator.GetCurrentAnimatorClipInfo(0).FirstOrDefault().clip.name != "Idle"*/)
+			{
+				animator.SetTrigger("Idle");
+			}
+			//animator.SetBool("IsWalking", moveInput.magnitude > 0 && isOnGround);
 
 			movement = transform.position + (transform.forward * moveInput.y * speed * Time.fixedDeltaTime);
 			rotation = (moveInput.x * rotationSpeed) * Time.fixedDeltaTime;

@@ -31,7 +31,7 @@ public class Item : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.transform.parent.gameObject == player.gameObject)
+        if (collision.collider.transform.gameObject == player.gameObject)
 		{
 			PickedUp();
 
