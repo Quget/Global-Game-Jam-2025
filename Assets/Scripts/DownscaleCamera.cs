@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class DownscaleCamera : MonoBehaviour
 {
     public Vector2Int resolution = new Vector2Int(240, 135);
+    public Material backgroundMaterial;
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class DownscaleCamera : MonoBehaviour
         pixelCamera.farClipPlane = Camera.main.farClipPlane;
         pixelCamera.nearClipPlane = Camera.main.nearClipPlane;
 
-        RenderTexture renderTexture = new RenderTexture(resolution.x, resolution.y, 24);
+        RenderTexture renderTexture = new RenderTexture(resolution.x, resolution.y, 8);
         renderTexture.filterMode = FilterMode.Point;
 
         return pixelCamera.targetTexture = renderTexture;
@@ -41,7 +42,8 @@ public class DownscaleCamera : MonoBehaviour
         backgroundImage.transform.localPosition = Vector3.zero;
         backgroundImage.rectTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
 
-        backgroundImage.color = Color.black;
+        // backgroundImage.color = Color.black;
+        backgroundImage.material = backgroundMaterial;
 
         RawImage renderImage = new GameObject("Pixel Result").AddComponent<RawImage>();
         renderImage.transform.SetParent(canvas.transform);
