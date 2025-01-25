@@ -17,10 +17,16 @@ namespace DubbelBubbel.Player
         private Vector3 rotationOffset = new Vector3(1, 1, 1);
 
         [SerializeField]
+        private float speed = 25f;
+
+        [SerializeField]
         private float rotationSpeed = 25;
 
         private Vector3 currentVelocity = Vector3.zero;
         private InputAction lookAction;
+
+        private Vector3 smoothedPosition;
+        private Quaternion smoothedRotation;
 
         private Vector3 TargetPosition
         {
@@ -42,20 +48,22 @@ namespace DubbelBubbel.Player
             lookAction = InputSystem.actions.FindAction("Look");
         }
 
-        private void Update()
-        {
-            if (Vector3.Distance(transform.position, TargetPosition) > 0)
-            {
-                Vector3 desiredPosition = TargetPosition + TargetRotation * positionOffset;
-                Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref currentVelocity, 0.25f);
-                transform.position = smoothedPosition;
-            }
+		private void Update()
+		{
 
-            var lookVector = lookAction.ReadValue<Vector2>().normalized;
-            //rotationOffset += new Vector3(lookVector.y, lookVector.x);
+			Vector3 desiredPosition = TargetPosition + TargetRotation * positionOffset;
+			smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref currentVelocity, speed * Time.deltaTime);
+
+            //var lookVector = lookAction.ReadValue<Vector2>().normalized;
+            //Todo do something with lookvector
             Quaternion desiredrotation = TargetRotation * Quaternion.Euler(rotationOffset);
-            Quaternion smoothedrotation = Quaternion.Lerp(transform.rotation, desiredrotation, 0.5f);
-            transform.rotation = smoothedrotation;
+			smoothedRotation = Quaternion.Lerp(transform.rotation, desiredrotation, rotationSpeed * Time.deltaTime);
+		}
+
+		private void FixedUpdate()
+        {
+			transform.position = smoothedPosition;
+			transform.rotation = smoothedRotation;
         }
     }
 }

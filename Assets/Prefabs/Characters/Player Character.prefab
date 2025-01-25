@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
-  rotationSpeed: 100
+  rotationSpeed: 900
   jumpForce: 5
 --- !u!114 &7038977901942631601
 MonoBehaviour:
