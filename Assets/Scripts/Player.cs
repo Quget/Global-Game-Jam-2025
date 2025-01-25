@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace DubbelBubbel.Player
 {
@@ -20,36 +21,61 @@ namespace DubbelBubbel.Player
 
 		private bool isOnGround = false;
 
+		private float jumpCooldown = 0.1f;
+		private float jumpTimer = 0;
+
+		private bool isJumping = false;
+
+		InputAction moveAction;
+		InputAction jumpAction;
+
 		private void Awake()
 		{
+			moveAction = InputSystem.actions.FindAction("Move");
+			jumpAction = InputSystem.actions.FindAction("Jump");
+
 			rigidbody = GetComponent<Rigidbody>();
 		}
 
 		private void Update()
 		{
-			var horizontalInput = Input.GetAxis("Horizontal");
-			var verticalInput = Input.GetAxis("Vertical");
-			movement = transform.forward * verticalInput * speed;
-
-			if (Input.GetButtonDown("Jump") && isOnGround)
-			{
-				rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, 0, rigidbody.linearVelocity.z);
-				rigidbody.AddForce(Vector3.up * jumpForce,ForceMode.Impulse);
-				isOnGround = false;
-			}
-			rotation = horizontalInput * rotationSpeed;
-
+			MovementInput();
 		}
 
 		private void LateUpdate()
 		{
-			Movement();
+			MovementUpdate();
 		}
 
-		private void Movement()
+		private void MovementInput()
 		{
-			rigidbody.linearVelocity = movement * Time.deltaTime;
-			transform.Rotate(0, rotation * Time.deltaTime, 0);
+			var moveInput = moveAction.ReadValue<Vector2>().normalized;
+			movement = transform.position + (transform.forward * moveInput.y * speed * Time.deltaTime);
+
+			if (jumpAction.IsPressed() && isOnGround && !isJumping)
+			{
+				rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+				isOnGround = false;
+				jumpTimer = 0;
+				isJumping = true;
+			}
+
+			if (isJumping)
+			{
+				jumpTimer += Time.deltaTime;
+				if(jumpTimer >= jumpCooldown)
+				{
+					isJumping = false;
+				}
+			}
+
+			rotation = (moveInput.x * rotationSpeed) * Time.deltaTime;
+		}
+
+		private void MovementUpdate()
+		{
+			rigidbody.MovePosition(movement);
+			transform.Rotate(0, rotation, 0);
 		}
 
 		private void OnCollisionStay(Collision collision)
