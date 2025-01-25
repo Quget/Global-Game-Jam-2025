@@ -1,8 +1,6 @@
-using DubbelBubbel.Player;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
 
 namespace DubbelBubbel.Player
 {

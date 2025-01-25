@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class GameData
@@ -52,16 +50,21 @@ public class GameData
     }
     public void GainHealth()
     {
+        Debug.Log("GainHealth - Old health: " + health);
         health += 1;
+        Debug.Log("GainHealth - New health: " + health);
     }
     public void LoseHealth()
     {
+        Debug.Log("LoseHealth - Old health: " + health);
         if (health != 0) 
         {
             health -= 1;
+            Debug.Log("LoseHealth - New health: " + health);
         } 
         else 
         {
+            Debug.Log("Health can't go lower than 0. Game-over.");
             GameOver();
 		}
     }
