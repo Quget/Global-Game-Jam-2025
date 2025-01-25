@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbf76ccd513b974892183d64c820184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleForce: 5
+  bubbleForce: 8
 --- !u!54 &6893796246003021284
 Rigidbody:
   m_ObjectHideFlags: 0
