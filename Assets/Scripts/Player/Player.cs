@@ -35,6 +35,7 @@ namespace DubbelBubbel.Player
 			jumpAction = InputSystem.actions.FindAction("Jump");
 
 			rigidbody = GetComponent<Rigidbody>();
+			movement = transform.position;
 		}
 
 		private void Update()
