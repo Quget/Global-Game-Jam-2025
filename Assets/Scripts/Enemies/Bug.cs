@@ -60,7 +60,7 @@ namespace DubbelBubbel.Enemies
 
 		public void OnCollisionEnter(Collision collision)
 		{
-				if (collision.collider.transform.parent.gameObject == player.gameObject)
+			if (player != null && collision.collider.transform.parent?.gameObject == player.gameObject)
 			{
 				if (isInBubble)
 				{

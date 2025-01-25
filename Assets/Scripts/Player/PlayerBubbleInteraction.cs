@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBubbleInteraction : MonoBehaviour
@@ -17,7 +18,7 @@ public class PlayerBubbleInteraction : MonoBehaviour
 	{
 		foreach(var bubble in GameManager.Instance.gameData.Bubbles)
 		{
-			if(collision.collider.transform.parent.gameObject == bubble.gameObject)
+			if(!bubble.IsDestroyed() && collision.collider.transform.parent?.gameObject == bubble.gameObject)
 			{
 				Destroy(bubble.gameObject);
 				GameManager.Instance.gameData.Bubbles.Remove(bubble);
