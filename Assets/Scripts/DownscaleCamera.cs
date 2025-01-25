@@ -9,8 +9,6 @@ public class DownscaleCamera : MonoBehaviour
     {
         RenderTexture pixelTexture = CreatePixelCamera();
         SetupCanvas(pixelTexture);
-
-        // Application.targetFrameRate = 60;
     }
 
     RenderTexture CreatePixelCamera()
