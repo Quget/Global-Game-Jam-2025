@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -25,6 +27,10 @@ public class GameData
     {
         get {return bubbles;}
     }
+
+    public event EventHandler OnPlayerDeath;
+
+
     public void SpawnBubble(Bubble bubble)
     {
         {
@@ -53,18 +59,22 @@ public class GameData
     public void LoseHealth()
     {
         Debug.Log("LoseHealth - Old health: " + health);
-        if (health != 0) {
+        if (health != 0) 
+        {
             health -= 1;
             Debug.Log("LoseHealth - New health: " + health);
-        } else {
+        } 
+        else 
+        {
             Debug.Log("Health can't go lower than 0. Game-over.");
             GameOver();
-        }
+		}
     }
     public void GameOver() 
     {
-        // :) Oj kurwa, we're dead
-    }
+		// :) Oj kurwa, we're dead
+		OnPlayerDeath?.Invoke(this, null);
+	}
 
     /*
     Power up system
@@ -80,7 +90,7 @@ public class GameData
         set {powerUp = value; }
     }
 
-    public void pickUpPowerUp()
+    public void PickUpPowerUp()
     {
         powerUp += 1;
     }
@@ -97,12 +107,12 @@ public class GameData
         set {itemsInWorld = value; }
     }
 
-    public void addItemToWorld()
+    public void AddItemToWorld()
     {
         itemsInWorld.Add(new Item());
     }
 
-    public void pickUpItem(Item item)
+    public void PickUpItem(Item item)
     {
         inventory.Add(item);
         itemsInWorld.Remove(item);

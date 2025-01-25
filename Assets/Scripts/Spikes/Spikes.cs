@@ -1,7 +1,61 @@
+using DubbelBubbel.Player;
 using UnityEngine;
 
 public class Spikes : MonoBehaviour
 {
-    private bool isBubbled = false;
-    public bool IsBubbled => isBubbled;
+	[SerializeField]
+	private float forceMultiplier = 25;
+
+    private bool isInBubble = false;
+
+	private float hurtCooldown = 2;
+	private float hurtTime = 0;
+	private bool canHurt = false;
+
+	private Player player;
+	public void Awake() 
+	{ 
+		player = FindFirstObjectByType<Player>();
+	}
+
+	private void Update()
+	{
+		if (canHurt && !isInBubble)
+		{
+			if (hurtTime < hurtCooldown)
+			{
+				hurtTime += Time.deltaTime;
+			}
+			else
+			{
+				canHurt = false;
+			}
+		}
+	}
+
+	private void OnCollisionStay(Collision collision)
+	{
+		if (!canHurt && !isInBubble)
+		{
+			if(collision.collider.transform.parent.gameObject == player.gameObject)
+			{
+				player.GetComponent<Rigidbody>().AddForce(Vector3.up * forceMultiplier);
+				canHurt = true;
+				hurtTime = 0;
+				GameManager.Instance.gameData.LoseHealth();
+				return;
+			}
+		}
+
+		if (!isInBubble)
+		{
+			var bubble = collision.collider.GetComponentInParent<Bubble>();
+			if (bubble != null)
+			{
+				isInBubble = true;
+				bubble.Entrap(transform);
+			}
+		}
+
+	}
 }

@@ -48,4 +48,12 @@ public class Bubble : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void Entrap(Transform theEntrapped)
+    {
+        rigidbody.isKinematic = true;
+		BubbleLife = GameManager.Instance.gameData.BubbleTimer;
+		transform.parent = theEntrapped;
+        transform.localPosition = Vector3.zero;
+	}
 }

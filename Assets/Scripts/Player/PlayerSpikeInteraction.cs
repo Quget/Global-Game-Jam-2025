@@ -30,7 +30,7 @@ public class PlayerSpikeInteraction : MonoBehaviour
 			{
 				isHurt = true;
 				hurtTime = 0;
-				Debug.Log("Hurt");
+				GameManager.Instance.gameData.LoseHealth();
 			}
 		}
 	}

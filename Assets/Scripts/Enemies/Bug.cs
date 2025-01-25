@@ -24,29 +24,32 @@ namespace DubbelBubbel.Enemies
 
 		private bool playerFound = false;
 
+		private bool isInBubble = false;
+
 		public void Awake()
 		{
 			rigedbody = GetComponent<Rigidbody>();
 			playerTarget = FindFirstObjectByType<Player.Player>();
 			movement = transform.position;
+			Application.targetFrameRate = 24;
 		}
 
-		public void Update()
+		public void FixedUpdate()
 		{
+			if(isInBubble)
+				return;
+
 			if ((Vector3.Distance(transform.position, playerTarget.transform.position) < minDistance && !playerFound) ||
 				Vector3.Distance(transform.position, playerTarget.transform.position) < minDistanceWhenPlayerIsFound && playerFound)
 			{
 
 				if (Physics.Raycast(transform.position + (transform.forward * 1.5f), Vector3.down, 2))
 				{
-					movement = transform.position + (transform.forward * speed * Time.deltaTime);
+					movement = transform.position + (transform.forward * speed * Time.fixedDeltaTime);
 				}
 				playerFound = true;
 			}
-		}
 
-		public void FixedUpdate()
-		{
 			if (playerFound)
 			{
 				transform.LookAt(playerTarget.transform.position);
@@ -57,10 +60,22 @@ namespace DubbelBubbel.Enemies
 
 		public void OnCollisionEnter(Collision collision)
 		{
-			if(collision.collider.gameObject == playerTarget.gameObject)
+			if (!isInBubble)
 			{
-				//Hurt player
-				playerTarget.GetComponent<Rigidbody>().AddForce((transform.forward.normalized + (Vector3.up * 0.25f)) * forceMultiplier);
+				if (collision.collider.transform.parent.gameObject == playerTarget.gameObject)
+				{
+					playerTarget.GetComponent<Rigidbody>().AddForce((transform.forward.normalized + (Vector3.up * 0.25f)) * forceMultiplier);
+					GameManager.Instance.gameData.LoseHealth();
+					return;
+				}
+
+				var bubble = collision.collider.GetComponentInParent<Bubble>();
+				if (bubble != null)
+				{
+					isInBubble = true;
+					rigedbody.isKinematic = true;
+					bubble.Entrap(transform);
+				}
 			}
 		}
 	}

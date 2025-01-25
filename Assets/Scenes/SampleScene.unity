@@ -808,6 +808,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1801393466857048784, guid: 054173343957c5c458c28e14cc86f0a8, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3124758203637761927, guid: 054173343957c5c458c28e14cc86f0a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.88
@@ -856,6 +860,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bug
       objectReference: {fileID: 0}
+    - target: {fileID: 7276431134442335342, guid: 054173343957c5c458c28e14cc86f0a8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -879,7 +887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8350063876136905580, guid: 097e14a8909e5e24a9464d0c8f7b6c55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8350063876136905580, guid: 097e14a8909e5e24a9464d0c8f7b6c55, type: 3}
       propertyPath: m_LocalPosition.z
@@ -926,7 +934,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 330585546}
   - {fileID: 7376127868558708653}
-  - {fileID: 167982914}
   - {fileID: 353102758}
   - {fileID: 5975716864895034049}
+  - {fileID: 167982914}
   - {fileID: 1303302507}
