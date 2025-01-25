@@ -1,4 +1,5 @@
 using DubbelBubbel.Player;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DubbelBubbel.Enemies
@@ -18,7 +19,7 @@ namespace DubbelBubbel.Enemies
 		private float forceMultiplier = 600;
 
 		private new Rigidbody rigedbody;
-		private Player.Player playerTarget;
+		private Player.Player player;
 
 		private Vector3 movement;
 
@@ -29,17 +30,17 @@ namespace DubbelBubbel.Enemies
 		public void Awake()
 		{
 			rigedbody = GetComponent<Rigidbody>();
-			playerTarget = FindFirstObjectByType<Player.Player>();
+			player = FindFirstObjectByType<Player.Player>();
 			movement = transform.position;
 		}
 
 		public void FixedUpdate()
 		{
-			if(isInBubble)
+			if(isInBubble || player.IsDestroyed())
 				return;
 
-			if ((Vector3.Distance(transform.position, playerTarget.transform.position) < minDistance && !playerFound) ||
-				Vector3.Distance(transform.position, playerTarget.transform.position) < minDistanceWhenPlayerIsFound && playerFound)
+			if ((Vector3.Distance(transform.position, player.transform.position) < minDistance && !playerFound) ||
+				Vector3.Distance(transform.position, player.transform.position) < minDistanceWhenPlayerIsFound && playerFound)
 			{
 
 				if (Physics.Raycast(transform.position + (transform.forward * 1.5f), Vector3.down, 2))
@@ -51,7 +52,7 @@ namespace DubbelBubbel.Enemies
 
 			if (playerFound)
 			{
-				transform.LookAt(playerTarget.transform.position);
+				transform.LookAt(player.transform.position);
 				transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 			}
 			rigedbody.MovePosition(movement);
@@ -59,24 +60,34 @@ namespace DubbelBubbel.Enemies
 
 		public void OnCollisionEnter(Collision collision)
 		{
-			if (!isInBubble)
+				if (collision.collider.transform.parent.gameObject == player.gameObject)
 			{
-				if (collision.collider.transform.parent.gameObject == playerTarget.gameObject)
+				if (isInBubble)
 				{
-					playerTarget.GetComponent<Rigidbody>().AddForce((transform.forward.normalized + (Vector3.up * 0.25f)) * forceMultiplier);
+					Destroy(this.gameObject);
+				}
+				else
+				{
+					player.GetComponent<Rigidbody>().AddForce((transform.forward.normalized + (Vector3.up * 0.25f)) * forceMultiplier);
 					GameManager.Instance.gameData.LoseHealth();
 					return;
 				}
+			}
 
-				var bubble = collision.collider.GetComponentInParent<Bubble>();
-				if (bubble != null)
+			if (!isInBubble)
+			{
+				if (GameManager.Instance.gameData.PowerUp >= 2)
 				{
-					isInBubble = true;
-					rigedbody.isKinematic = true;
-					bubble.Entrap(transform, () => {
-						isInBubble = false;
-						rigedbody.isKinematic = false;
-					});
+					var bubble = collision.collider.GetComponentInParent<Bubble>();
+					if (bubble != null)
+					{
+						isInBubble = true;
+						rigedbody.isKinematic = true;
+						bubble.Entrap(transform, () => {
+							isInBubble = false;
+							rigedbody.isKinematic = false;
+						});
+					}
 				}
 			}
 		}

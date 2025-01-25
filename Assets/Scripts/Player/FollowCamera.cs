@@ -1,4 +1,5 @@
 using DubbelBubbel.Player;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.GraphicsBuffer;
@@ -32,14 +33,22 @@ namespace DubbelBubbel.Player
         {
             get
             {
-                return targetObject?.transform.position ?? Vector3.zero;
+                if (targetObject.IsDestroyed())
+                {
+                    return Vector3.zero;
+                }
+                return targetObject.transform.position;
             }
         }
         private Quaternion TargetRotation
         {
             get
             {
-                return targetObject?.transform.rotation ?? Quaternion.identity;
+				if (targetObject.IsDestroyed())
+				{
+					return Quaternion.identity;
+				}
+                return targetObject.transform.rotation;
             }
         }
 
