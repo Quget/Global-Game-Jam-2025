@@ -32,14 +32,14 @@ namespace DubbelBubbel.Player
         {
             get
             {
-                return targetObject.transform.position;
+                return targetObject?.transform.position ?? Vector3.zero;
             }
         }
         private Quaternion TargetRotation
         {
             get
             {
-                return targetObject.transform.rotation;
+                return targetObject?.transform.rotation ?? Quaternion.identity;
             }
         }
 
@@ -48,21 +48,14 @@ namespace DubbelBubbel.Player
             lookAction = InputSystem.actions.FindAction("Look");
         }
 
-		private void Update()
+		private void FixedUpdate()
 		{
-
 			Vector3 desiredPosition = TargetPosition + TargetRotation * positionOffset;
 			smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref currentVelocity, speed * Time.deltaTime);
+            transform.position = smoothedPosition;
 
-            //var lookVector = lookAction.ReadValue<Vector2>().normalized;
-            //Todo do something with lookvector
             Quaternion desiredrotation = TargetRotation * Quaternion.Euler(rotationOffset);
-			smoothedRotation = Quaternion.Lerp(transform.rotation, desiredrotation, rotationSpeed * Time.deltaTime);
-		}
-
-		private void FixedUpdate()
-        {
-			transform.position = smoothedPosition;
+			smoothedRotation = Quaternion.Lerp(transform.rotation, desiredrotation, rotationSpeed * Time.fixedDeltaTime);
 			transform.rotation = smoothedRotation;
         }
     }
