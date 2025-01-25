@@ -60,7 +60,7 @@ namespace DubbelBubbel.Enemies
 
 		public void OnCollisionEnter(Collision collision)
 		{
-			if (collision.collider.transform.parent.gameObject == playerTarget.gameObject)
+				if (collision.collider.transform.parent.gameObject == playerTarget.gameObject)
 			{
 				if (isInBubble)
 				{
@@ -76,15 +76,18 @@ namespace DubbelBubbel.Enemies
 
 			if (!isInBubble)
 			{
-				var bubble = collision.collider.GetComponentInParent<Bubble>();
-				if (bubble != null)
+				if (GameManager.Instance.gameData.PowerUp >= 3)
 				{
-					isInBubble = true;
-					rigedbody.isKinematic = true;
-					bubble.Entrap(transform, () => {
-						isInBubble = false;
-						rigedbody.isKinematic = false;
-					});
+					var bubble = collision.collider.GetComponentInParent<Bubble>();
+					if (bubble != null)
+					{
+						isInBubble = true;
+						rigedbody.isKinematic = true;
+						bubble.Entrap(transform, () => {
+							isInBubble = false;
+							rigedbody.isKinematic = false;
+						});
+					}
 				}
 			}
 		}
