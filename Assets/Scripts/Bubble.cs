@@ -38,6 +38,7 @@ public class Bubble : MonoBehaviour
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        
     }
 
     void Start()
