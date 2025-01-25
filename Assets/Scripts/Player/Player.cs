@@ -14,7 +14,7 @@ namespace DubbelBubbel.Player
 
 		private void Update()
 		{
-			if(spawnPosition.y - transform.position.y <= 20)
+			if(spawnPosition.y - transform.position.y <= -20)
 			{
 				GameManager.Instance.gameData.LoseHealth();
 				transform.position = spawnPosition;
