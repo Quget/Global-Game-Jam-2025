@@ -22,7 +22,7 @@ public class Spikes : MonoBehaviour
 	{
 		if (canHurt && !isInBubble)
 		{
-			if (hurtTime < hurtCooldown)
+			if (hurtTime >= hurtCooldown)
 			{
 				hurtTime += Time.deltaTime;
 			}
