@@ -11,7 +11,6 @@ public class PowerUp : MonoBehaviour
     {
         player = FindFirstObjectByType<Player>();
         GameManager.Instance.gameData.PowerUpItems.Add(this);
-
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

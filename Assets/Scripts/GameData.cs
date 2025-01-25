@@ -113,9 +113,9 @@ public class GameData
         set {itemsInWorld = value; }
     }
 
-    public void AddItemToWorld()
+    public void AddItemToWorld(Item item)
     {
-        itemsInWorld.Add(new Item());
+        itemsInWorld.Add(item);
     }
 
     public void PickUpItem(Item item)
