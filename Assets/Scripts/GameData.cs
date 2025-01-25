@@ -20,7 +20,7 @@ public class GameData
     }
 
     // bubbles: Array of the bubble objects currently in existence
-    private List<Bubble> bubbles;
+    private List<Bubble> bubbles = new List<Bubble>();
     public List<Bubble> Bubbles
     {
         get {return bubbles;}
