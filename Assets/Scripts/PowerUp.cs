@@ -10,7 +10,10 @@ public class PowerUp : MonoBehaviour
     private InputAction interactAction;
     private float distanceToBeInRange = 2;
 
-    void Awake()
+	[SerializeField]
+	private AudioClip powerupPickUpClip;
+
+	void Awake()
     {
         player = FindFirstObjectByType<Player>();
         GameManager.Instance.gameData.PowerUpItems.Add(this);
@@ -34,12 +37,10 @@ public class PowerUp : MonoBehaviour
         var distance = Vector3.Distance(player.transform.position, transform.position);
 		if (distance < distanceToBeInRange)
 		{
-            Debug.Log("Old PowerUp: " + GameManager.Instance.gameData.PowerUp);
             interactAction.performed -= InteractAction_performed;
+            AudioSource.PlayClipAtPoint(powerupPickUpClip, transform.position);
             GameManager.Instance.gameData.PickUpPowerUp();
             Destroy(this.gameObject);
-            Debug.Log("Powerup picked up");
-            Debug.Log("New PowerUp: " + GameManager.Instance.gameData.PowerUp);		
 		}
 	}
 
