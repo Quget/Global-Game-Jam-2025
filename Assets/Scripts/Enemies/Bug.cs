@@ -31,7 +31,6 @@ namespace DubbelBubbel.Enemies
 			rigedbody = GetComponent<Rigidbody>();
 			playerTarget = FindFirstObjectByType<Player.Player>();
 			movement = transform.position;
-			Application.targetFrameRate = 24;
 		}
 
 		public void FixedUpdate()
