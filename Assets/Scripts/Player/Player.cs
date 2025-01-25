@@ -42,7 +42,7 @@ namespace DubbelBubbel.Player
 			MovementInput();
 		}
 
-		private void LateUpdate()
+		private void FixedUpdate()
 		{
 			MovementUpdate();
 		}
@@ -82,7 +82,7 @@ namespace DubbelBubbel.Player
 		{
 			if (!isOnGround)
 			{
-				for (int i = 0; i < collision.contacts.Length; i++)//Get all contact points
+				for (int i = 0; i < collision.contacts.Length; i++)
 				{
 					if (Vector3.Angle(collision.contacts[i].normal, Vector3.up) < 60)
 					{

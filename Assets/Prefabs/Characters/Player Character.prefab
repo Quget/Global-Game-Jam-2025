@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
-  rotationSpeed: 100
+  rotationSpeed: 900
   jumpForce: 5
 --- !u!65 &6790167764605496015
 BoxCollider:
