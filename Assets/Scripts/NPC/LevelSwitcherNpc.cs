@@ -19,11 +19,14 @@ public class LevelSwitcherNpc : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		var distance = Vector3.Distance(player.transform.position, transform.position);
-		if (distance < distanceToBeInRange)
+		if (player != null)
 		{
-			transform.LookAt(player.transform.position);
-			transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+			var distance = Vector3.Distance(player.transform.position, transform.position);
+			if (distance < distanceToBeInRange)
+			{
+				transform.LookAt(player.transform.position);
+				transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+			}
 		}
 	}
 
