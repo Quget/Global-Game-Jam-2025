@@ -1,3 +1,4 @@
+using System;
 using System.Security.Cryptography.X509Certificates;
 using Unity.Collections;
 using UnityEngine;
@@ -29,6 +30,8 @@ public class Bubble : MonoBehaviour
         set {bubbleLife = value; }
     }
 
+    private Action onLifeEnd;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -45,12 +48,14 @@ public class Bubble : MonoBehaviour
     {
         bubbleLife -= Time.deltaTime;
         if (bubbleLife <= 0) {
-            Destroy(gameObject);
+            onLifeEnd?.Invoke();
+			Destroy(gameObject);
         }
     }
 
-    public void Entrap(Transform theEntrapped)
+    public void Entrap(Transform theEntrapped, Action onLifeEnd)
     {
+        this.onLifeEnd = onLifeEnd;
         rigidbody.isKinematic = true;
 		BubbleLife = GameManager.Instance.gameData.BubbleTimer;
 		transform.parent = theEntrapped;

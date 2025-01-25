@@ -53,7 +53,9 @@ public class Spikes : MonoBehaviour
 			if (bubble != null)
 			{
 				isInBubble = true;
-				bubble.Entrap(transform);
+				bubble.Entrap(transform, () => {
+					isInBubble = false;
+				});
 			}
 		}
 

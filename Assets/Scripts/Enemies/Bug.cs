@@ -74,7 +74,10 @@ namespace DubbelBubbel.Enemies
 				{
 					isInBubble = true;
 					rigedbody.isKinematic = true;
-					bubble.Entrap(transform);
+					bubble.Entrap(transform, () => {
+						isInBubble = false;
+						rigedbody.isKinematic = false;
+					});
 				}
 			}
 		}
