@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,18 @@ namespace DubbelBubbel.Player
 
 		[SerializeField]
 		private float jumpForce = 200;
+
+		[SerializeField]
+		private AudioClip jumpClip;
+
+		[SerializeField]
+		private AudioClip jumpVoiceClip;
+
+		[SerializeField]
+		private AudioClip[] footSteps;
+
+		[SerializeField]
+		private AudioSource footSource;
 
 		private Vector3 movement = Vector3.zero;
 		private float rotation = 0;
@@ -45,12 +58,22 @@ namespace DubbelBubbel.Player
 			if (isOnGround)
 			{
 				rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+				footSource.Stop();
+				AudioSource.PlayClipAtPoint(jumpClip, transform.position);
+				AudioSource.PlayClipAtPoint(jumpVoiceClip, transform.position);
 			}
 		}
 
 		private void MovementInput()
 		{
 			var moveInput = moveAction.ReadValue<Vector2>().normalized;
+
+			if(moveInput.magnitude > 0 && !footSource.isPlaying && isOnGround)
+			{
+				footSource.clip = GetRandomFootstepClip();
+				footSource.Play();
+			}
+
 			movement = transform.position + (transform.forward * moveInput.y * speed * Time.fixedDeltaTime);
 			rotation = (moveInput.x * rotationSpeed) * Time.fixedDeltaTime;
 		}
@@ -75,6 +98,10 @@ namespace DubbelBubbel.Player
 			}
 		}
 
+		private AudioClip GetRandomFootstepClip()
+		{
+			return footSteps[Random.Range(0, footSteps.Length)];
+		}
 		private void OnCollisionExit(Collision collision)
 		{
 			isOnGround = false;

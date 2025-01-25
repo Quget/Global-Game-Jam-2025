@@ -1,6 +1,7 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bubble : MonoBehaviour
@@ -39,8 +40,16 @@ public class Bubble : MonoBehaviour
 
     private float bubbleStopTimer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    [SerializeField]
+    private AudioClip bubblePopClip;
+
+	[SerializeField]
+	private AudioClip bubbleHitClip;
+
+    private GameObject theEntrapped;
+
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         
@@ -59,8 +68,12 @@ public class Bubble : MonoBehaviour
         bubbleLife -= Time.deltaTime;
 		bubbleStopTimer -= Time.deltaTime;
 
-		if (bubbleLife <= 0) {
-            onLifeEnd?.Invoke();
+		if (bubbleLife <= 0)
+        {
+            if(theEntrapped != null && !theEntrapped.IsDestroyed())
+            {
+				onLifeEnd?.Invoke();
+			}
 			Destroy(gameObject);
         }
 
@@ -70,20 +83,18 @@ public class Bubble : MonoBehaviour
         }
     }
 
-	public void Entrap(Transform theEntrapped, Action onLifeEnd)
+	public void Entrap(GameObject theEntrapped, Action onLifeEnd)
     {
-        this.onLifeEnd = onLifeEnd;
+        this.theEntrapped = theEntrapped;
+		this.onLifeEnd = onLifeEnd;
         BubbleLife = GameManager.Instance.gameData.BubbleTimer;
         bubbleRenderer.gameObject.SetActive(false);
-		//Destroy(this.gameObject);
-		/*
-        rigidbody.isKinematic = true;
-		transform.parent = theEntrapped;
-        transform.localPosition = Vector3.zero;*/
+		AudioSource.PlayClipAtPoint(bubbleHitClip, transform.position);
 	}
 
 	private void OnDestroy()
 	{
+        AudioSource.PlayClipAtPoint(bubblePopClip, transform.position);
         onLifeEnd = null;
 	}
 }

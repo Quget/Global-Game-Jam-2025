@@ -92,7 +92,7 @@ namespace DubbelBubbel.Enemies
 					{
 						isInBubble = true;
 						UpdateBubbleEnclosure();
-						bubble.Entrap(transform, () => {
+						bubble.Entrap(this.gameObject, () => {
 							isInBubble = false;
 							UpdateBubbleEnclosure();
 						});

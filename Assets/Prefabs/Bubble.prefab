@@ -157,6 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubbleForce: 8
   bubbleRenderer: {fileID: 5174140096894119067}
+  bubblePopClip: {fileID: 8300000, guid: 167601c8119e64340aadc3afd14cf180, type: 3}
+  bubbleHitClip: {fileID: 8300000, guid: ef9b9838fefc21c4fb2268a0e1768d61, type: 3}
 --- !u!54 &6893796246003021284
 Rigidbody:
   m_ObjectHideFlags: 0
