@@ -32,20 +32,7 @@ namespace DubbelBubbel.Player
         {
             get
             {
-                if (targetObject.IsDestroyed())
-                {
-
-                    var bug = FindFirstObjectByType<Bug>();
-                    if(bug != null)
-                    {
-                        return bug.transform.position;
-                    }
-                    else
-                    {
-						return FindFirstObjectByType<LevelSwitcherNpc>().transform.position;
-					}
-
-                }
+                UpdateTargetObject();
                 return targetObject.transform.position;
             }
         }
@@ -53,12 +40,7 @@ namespace DubbelBubbel.Player
         {
             get
             {
-				if (targetObject.IsDestroyed())
-				{
-
-
-                    return FindFirstObjectByType<LevelSwitcherNpc>().transform.rotation;
-				}
+				UpdateTargetObject();
                 return targetObject.transform.rotation;
             }
         }
@@ -66,6 +48,27 @@ namespace DubbelBubbel.Player
         private void Awake()
         {
             lookAction = InputSystem.actions.FindAction("Look");
+        }
+
+        private void UpdateTargetObject()
+        {
+            if (targetObject.IsDestroyed())
+            {
+                var bug = FindFirstObjectByType<Bug>();
+                if(bug != null)
+                {
+                    targetObject = bug.gameObject;
+
+				}
+                else
+                {
+                    var npc = FindFirstObjectByType<LevelSwitcherNpc>();
+                    if(npc != null)
+                    {
+                        targetObject = npc.gameObject;
+					}
+				}
+            }
         }
 
 		private void FixedUpdate()

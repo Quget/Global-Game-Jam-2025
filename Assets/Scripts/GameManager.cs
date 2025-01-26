@@ -44,10 +44,10 @@ public class GameManager : MonoBehaviour
 
 	public void EndGame()
 	{
-		ResetGame();
+		UIManager.instance.ShowGameOver();
 	}
 
-	private void ResetGame()
+	public void ResetGame()
 	{
 		Instance.gameData.OnPlayerDeath -= GameData_OnPlayerDeath;
 		Instance.gameData = new GameData();//reset;

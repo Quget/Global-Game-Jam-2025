@@ -1,43 +1,19 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
     public HealthUI healthUI;
     public PowerupUI powerupUI;
     public TutorialUI tutorialUI;
-
-    public TutorialPrompt[] prompts;
+    public GameOverUI gameOverUI;
 
     public static UIManager instance;
 
-    bool usingKeyboard = true;
-
-    void Awake() => instance = this;
-
-    void OnEnable() => InputSystem.onEvent += OnInputSystemEvent;
-    void OnDisable() => InputSystem.onEvent += OnInputSystemEvent;
-
-    void OnInputSystemEvent(UnityEngine.InputSystem.LowLevel.InputEventPtr eventPtr, InputDevice device)
+    void Awake()
     {
-        if (device is UnityEngine.InputSystem.XInput.XInputController && usingKeyboard)
-        {
-            usingKeyboard = false;
-
-            foreach (TutorialPrompt prompt in prompts)
-                prompt.SetControllerControls();
-
-            return;
-        }
-
-        if (device is Keyboard & !usingKeyboard)
-        {
-            usingKeyboard = true;
-
-            foreach (TutorialPrompt prompt in prompts)
-                prompt.SetKeboardControls();
-        }
-    }
+        instance = this;
+		gameOverUI.gameObject.SetActive(false);
+	}
 
     public void EnablePowerup(int index)
     {
@@ -55,6 +31,15 @@ public class UIManager : MonoBehaviour
         powerupUI.DisablePowerup(index);
     }
 
+    public void ShowGameOver()
+    {
+        gameOverUI.gameObject.SetActive(true);
+    }
+
+    public void ResetGame()
+    {
+        GameManager.Instance.ResetGame();
+	}
     public void AddHeart() => healthUI.AddHeart();
     public bool RemoveHeart() => healthUI.RemoveHeart(); // Returns true if all hearts are gone
 }
