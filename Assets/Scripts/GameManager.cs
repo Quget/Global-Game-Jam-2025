@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
 			UIManager.instance.ShowText("I didn't focus enough on other peoples bubbles. I guess I am too much in my own bubble");
 			Destroy(player.gameObject);
 			playerDied = true;
+			endTimer = 0;
 
 		}
 	}
