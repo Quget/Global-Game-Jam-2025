@@ -42,7 +42,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _Density: 14
+    - _Density: 20
     - _Speed: 0.2
     - _Stencil: 0
     - _StencilComp: 8
