@@ -719,7 +719,7 @@ MonoBehaviour:
   keyboardTutorial: '<size=8>E</size>
 
     <b>Pickup</b>'
-  controllerTutorial: '<size=8></size>
+  controllerTutorial: '<size=8>Y</size>
 
     <b>Pickup</b>'
 --- !u!1 &5812485873762988975
@@ -1504,7 +1504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d75a9fd10f67234d8c11a9087839109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboardTutorial: '<size=8></size>
+  keyboardTutorial: '<size=8>E</size>
 
     <b>Interact</b>'
   controllerTutorial: '<size=8>Y</size>
