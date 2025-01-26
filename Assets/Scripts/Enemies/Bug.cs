@@ -114,8 +114,9 @@ namespace DubbelBubbel.Enemies
 							UpdateBubbleEnclosure();
 						});
 					}
-				} else {
-				Destroy(bubble.gameObject);
+				} 
+				else if(bubble != null) {
+					Destroy(bubble.gameObject);
 				}
 			}
 		}
