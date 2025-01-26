@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public PowerupUI powerupUI;
     public TutorialUI tutorialUI;
     public GameOverUI gameOverUI;
+    public CheesyTextUI cheesyText;
 
     public TutorialPrompt[] prompts;
     bool usingKeyboard = true;
@@ -17,7 +18,9 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         gameOverUI.gameObject.SetActive(false);
-    }
+        cheesyText.gameObject.SetActive(false);
+
+	}
 
     void OnEnable() => InputSystem.onEvent += OnInputSystemEvent;
     void OnDisable() => InputSystem.onEvent += OnInputSystemEvent;
@@ -36,6 +39,11 @@ public class UIManager : MonoBehaviour
             tutorialUI.ShowShootTutorial(false);
 
         powerupUI.DisablePowerup(index);
+    }
+
+    public void ShowText(string text)
+    {
+        cheesyText.ShowText(text);
     }
 
     public void ShowGameOver()

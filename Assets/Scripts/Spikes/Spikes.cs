@@ -60,9 +60,9 @@ public class Spikes : MonoBehaviour
 
 		if (!isInBubble)
 		{
+			var bubble = collision.collider.GetComponentInParent<Bubble>();
 			if (GameManager.Instance.gameData.PowerUp >= 3)
 			{
-				var bubble = collision.collider.GetComponentInParent<Bubble>();
 				if (bubble != null)
 				{
 					isInBubble = true;
@@ -72,7 +72,10 @@ public class Spikes : MonoBehaviour
 						UpdateBubbleEnclosure();
 					});
 				}
+			} else {
+				Destroy(bubble.gameObject);
 			}
+		
 		}
 
 	}

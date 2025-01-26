@@ -102,9 +102,9 @@ namespace DubbelBubbel.Enemies
 
 			if (!isInBubble)
 			{
+				var bubble = collision.collider.GetComponentInParent<Bubble>();
 				if (GameManager.Instance.gameData.PowerUp >= 2)
-				{
-					var bubble = collision.collider.GetComponentInParent<Bubble>();
+				{			
 					if (bubble != null)
 					{
 						isInBubble = true;
@@ -114,6 +114,8 @@ namespace DubbelBubbel.Enemies
 							UpdateBubbleEnclosure();
 						});
 					}
+				} else {
+				Destroy(bubble.gameObject);
 				}
 			}
 		}
