@@ -2612,7 +2612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 9913102}
-  positionOffset: {x: 0, y: 3, z: -3}
+  positionOffset: {x: 0, y: 3, z: -5}
   rotationOffset: {x: 20, y: 0, z: 0}
   speed: 25
   rotationSpeed: 25
@@ -3291,3 +3291,5 @@ SceneRoots:
   - {fileID: 1307460511}
   - {fileID: 2065760935}
   - {fileID: 431497796}
+  - {fileID: 1621038412}
+  - {fileID: 1386455982}
