@@ -180,7 +180,7 @@ BlendTree:
     m_DirectBlendParameter: Walking
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 8349542763059015795, guid: d9b4cab84d7c1d44bb2b9a5e73102d22, type: 3}
+    m_Motion: {fileID: 7400000, guid: 6694116a329698547ab5bb2249691a4d, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1

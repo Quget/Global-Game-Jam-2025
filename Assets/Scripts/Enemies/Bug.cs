@@ -22,13 +22,10 @@ namespace DubbelBubbel.Enemies
 		private GameObject bubbleEnclosure;
 
 		[SerializeField]
-		private AudioClip[] footSteps;
-
-		[SerializeField]
-		private AudioSource footSource;
-
-		[SerializeField]
 		private AudioClip dieAudioClip;
+
+		[SerializeField]
+		private Animator animator;
 
 		private new Rigidbody rigedbody;
 		private Player.Player player;
@@ -51,15 +48,13 @@ namespace DubbelBubbel.Enemies
 		{
 			bubbleEnclosure.SetActive(isInBubble);
 		}
-		private AudioClip GetRandomFootstepClip()
-		{
-			return footSteps[Random.Range(0, footSteps.Length)];
-		}
-
 		public void FixedUpdate()
 		{
 			if(isInBubble || player.IsDestroyed())
+			{
+				animator.SetFloat("Walking", 0);
 				return;
+			}
 
 			if ((Vector3.Distance(transform.position, player.transform.position) < minDistance && !playerFound) ||
 				Vector3.Distance(transform.position, player.transform.position) < minDistanceWhenPlayerIsFound && playerFound)
@@ -68,11 +63,6 @@ namespace DubbelBubbel.Enemies
 				if (Physics.Raycast(transform.position + (transform.forward * 1.5f), Vector3.down, 2))
 				{
 					movement = transform.position + (transform.forward * speed * Time.fixedDeltaTime);
-					if (!footSource.isPlaying)
-					{
-						footSource.clip = GetRandomFootstepClip();
-						footSource.Play();
-					}
 				}
 				playerFound = true;
 			}
@@ -82,6 +72,7 @@ namespace DubbelBubbel.Enemies
 				transform.LookAt(player.transform.position);
 				transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 			}
+			animator.SetFloat("Walking", movement.normalized.magnitude);
 			rigedbody.MovePosition(movement);
 		}
 

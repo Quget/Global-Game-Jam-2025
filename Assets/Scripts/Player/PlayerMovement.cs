@@ -24,12 +24,6 @@ namespace DubbelBubbel.Player
 		private AudioClip jumpVoiceClip;
 
 		[SerializeField]
-		private AudioClip[] footSteps;
-
-		[SerializeField]
-		private AudioSource footSource;
-
-		[SerializeField]
 		private Animator animator;
 
 		private Vector3 movement = Vector3.zero;
@@ -61,7 +55,6 @@ namespace DubbelBubbel.Player
 			if (isOnGround)
 			{
 				rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-				footSource.Stop();
 				AudioSource.PlayClipAtPoint(jumpClip, transform.position);
 				AudioSource.PlayClipAtPoint(jumpVoiceClip, transform.position);
 			}
@@ -70,12 +63,6 @@ namespace DubbelBubbel.Player
 		private void MovementInput()
 		{
 			var moveInput = moveAction.ReadValue<Vector2>().normalized;
-
-			if(moveInput.magnitude > 0 && !footSource.isPlaying && isOnGround)
-			{
-				footSource.clip = GetRandomFootstepClip();
-				footSource.Play();
-			}
 
 			animator.SetFloat("Walking", moveInput.magnitude);
 			animator.SetBool("Jumping", !isOnGround);
@@ -102,11 +89,6 @@ namespace DubbelBubbel.Player
 					}
 				}
 			}
-		}
-
-		private AudioClip GetRandomFootstepClip()
-		{
-			return footSteps[Random.Range(0, footSteps.Length)];
 		}
 
 		private void OnCollisionExit(Collision collision)

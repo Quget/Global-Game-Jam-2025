@@ -325,11 +325,8 @@ MonoBehaviour:
   speed: 3
   forceMultiplier: 500
   bubbleEnclosure: {fileID: 2101988756536083956}
-  footSteps:
-  - {fileID: 8300000, guid: 55c9b100d7ec4414991e880ca3172c95, type: 3}
-  - {fileID: 8300000, guid: bf6b62d91838d7e4789efad3002e53bd, type: 3}
-  footSource: {fileID: 242169175256720401}
   dieAudioClip: {fileID: 8300000, guid: fd0120360e8fe7f4e92c7464f4afb008, type: 3}
+  animator: {fileID: 5326381809591517495}
 --- !u!54 &6182803429026880352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -417,6 +414,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5100370451402295297}
   m_SourcePrefab: {fileID: 100100000, guid: c91e4d8b6999c0f4eb111a0a57631095, type: 3}
+--- !u!95 &5326381809591517495 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3486723938792886620, guid: c91e4d8b6999c0f4eb111a0a57631095, type: 3}
+  m_PrefabInstance: {fileID: 8757329722512756843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6098349917762901520 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3254404933744428667, guid: c91e4d8b6999c0f4eb111a0a57631095, type: 3}
