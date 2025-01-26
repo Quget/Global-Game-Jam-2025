@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class TutorialPrompt : MonoBehaviour
 {
@@ -17,16 +18,20 @@ public class TutorialPrompt : MonoBehaviour
 
     // void OnEnable()
     // {
-    //     InputSystem.onDeviceChange += DeviceChange;
+    //     InputUser.onChange += onInputDeviceChange;
     // }
 
     // void OnDisable()
     // {
-    //     InputSystem.onDeviceChange -= DeviceChange;
+    //     InputUser.onChange -= onInputDeviceChange;
     // }
 
-    void DeviceChange(InputDevice device, InputDeviceChange change)
+    void onInputDeviceChange(InputUser user, InputUserChange change, InputDevice device)
     {
-        Debug.LogWarning(device.name);
+        // Debug.Log("updates!");
+        // if (change == InputUserChange.ControlSchemeChanged)
+        // {
+        //     Debug.LogWarning(device.name);
+        // }
     }
 }
