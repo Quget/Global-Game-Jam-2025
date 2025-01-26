@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5ca20e201d4fa1f47aeba709937e77f0, type: 2}
     - target: {fileID: 6272706394877546746, guid: fc5c28049c4327947b49545d77f91583, type: 3}
       propertyPath: m_Name
-      value: NPC2 Variant
+      value: NPC2
       objectReference: {fileID: 0}
     - target: {fileID: 6649267533994986048, guid: fc5c28049c4327947b49545d77f91583, type: 3}
       propertyPath: m_LocalPosition.x

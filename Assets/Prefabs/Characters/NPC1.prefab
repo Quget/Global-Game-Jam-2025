@@ -12,9 +12,13 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 33c74e41e8c4e654ca7e2459a1c3f7ef, type: 2}
+    - target: {fileID: 4752515614703282885, guid: fc5c28049c4327947b49545d77f91583, type: 3}
+      propertyPath: levelToLoad
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6272706394877546746, guid: fc5c28049c4327947b49545d77f91583, type: 3}
       propertyPath: m_Name
-      value: NPC1 Variant
+      value: NPC1
       objectReference: {fileID: 0}
     - target: {fileID: 6649267533994986048, guid: fc5c28049c4327947b49545d77f91583, type: 3}
       propertyPath: m_LocalPosition.x

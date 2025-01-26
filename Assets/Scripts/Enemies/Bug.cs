@@ -21,6 +21,15 @@ namespace DubbelBubbel.Enemies
 		[SerializeField]
 		private GameObject bubbleEnclosure;
 
+		[SerializeField]
+		private AudioClip[] footSteps;
+
+		[SerializeField]
+		private AudioSource footSource;
+
+		[SerializeField]
+		private AudioClip dieAudioClip;
+
 		private new Rigidbody rigedbody;
 		private Player.Player player;
 
@@ -42,6 +51,10 @@ namespace DubbelBubbel.Enemies
 		{
 			bubbleEnclosure.SetActive(isInBubble);
 		}
+		private AudioClip GetRandomFootstepClip()
+		{
+			return footSteps[Random.Range(0, footSteps.Length)];
+		}
 
 		public void FixedUpdate()
 		{
@@ -55,6 +68,11 @@ namespace DubbelBubbel.Enemies
 				if (Physics.Raycast(transform.position + (transform.forward * 1.5f), Vector3.down, 2))
 				{
 					movement = transform.position + (transform.forward * speed * Time.fixedDeltaTime);
+					if (!footSource.isPlaying)
+					{
+						footSource.clip = GetRandomFootstepClip();
+						footSource.Play();
+					}
 				}
 				playerFound = true;
 			}
@@ -69,16 +87,24 @@ namespace DubbelBubbel.Enemies
 
 		public void OnCollisionEnter(Collision collision)
 		{
-			if (player != null && collision.collider.transform.parent?.gameObject == player.gameObject)
+			if (player != null && collision.collider.transform.gameObject == player.gameObject)
 			{
 				if (isInBubble)
 				{
-					Destroy(this.gameObject);
+					for (int i = 0; i < collision.contacts.Length; i++)
+					{
+						Debug.Log(Vector3.Angle(collision.contacts[i].normal, Vector3.up));
+						if (Vector3.Angle(collision.contacts[i].normal, Vector3.up) > 140)
+						{
+							Destroy(this.gameObject);
+							break;
+						}
+					}
 				}
 				else
 				{
 					player.GetComponent<Rigidbody>().AddForce((transform.forward.normalized + (Vector3.up * 0.25f)) * forceMultiplier);
-					GameManager.Instance.gameData.LoseHealth(); 
+					player.DoDamage();
 					return;
 				}
 			}
@@ -99,6 +125,11 @@ namespace DubbelBubbel.Enemies
 					}
 				}
 			}
+		}
+
+		private void OnDestroy()
+		{
+			AudioSource.PlayClipAtPoint(dieAudioClip, transform.position);
 		}
 	}
 }

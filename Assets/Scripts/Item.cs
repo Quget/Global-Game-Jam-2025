@@ -31,7 +31,7 @@ public class Item : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.transform.parent.gameObject == player.gameObject)
+        if (collision.collider.transform.gameObject == player.gameObject)
 		{
 			PickedUp();
 
@@ -40,9 +40,13 @@ public class Item : MonoBehaviour
 
 	private void PickedUp()
 	{
-		interactAction.performed -= InteractAction_performed;
 		AudioSource.PlayClipAtPoint(itemPickUpClip, player.transform.position);
 		GameManager.Instance.gameData.PickUpItem(this);
 		Destroy(this.gameObject);
+	}
+
+	private void OnDestroy()
+	{
+		interactAction.performed -= InteractAction_performed;
 	}
 }

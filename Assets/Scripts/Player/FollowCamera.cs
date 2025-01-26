@@ -1,8 +1,6 @@
-using DubbelBubbel.Player;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
 
 namespace DubbelBubbel.Player
 {
@@ -35,7 +33,7 @@ namespace DubbelBubbel.Player
             {
                 if (targetObject.IsDestroyed())
                 {
-                    return Vector3.zero;
+                    return FindFirstObjectByType<LevelSwitcherNpc>().transform.position;
                 }
                 return targetObject.transform.position;
             }
@@ -46,7 +44,7 @@ namespace DubbelBubbel.Player
             {
 				if (targetObject.IsDestroyed())
 				{
-					return Quaternion.identity;
+                    return FindFirstObjectByType<LevelSwitcherNpc>().transform.rotation;
 				}
                 return targetObject.transform.rotation;
             }

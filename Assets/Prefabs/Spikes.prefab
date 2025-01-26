@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceMultiplier: 100
+  bubbleEnclosure: {fileID: 1427861281862085858}
 --- !u!4 &599254028605231758 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 92348357e01515542a1e6ac35a5f444a, type: 3}

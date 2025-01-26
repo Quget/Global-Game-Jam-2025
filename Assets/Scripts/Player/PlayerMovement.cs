@@ -1,4 +1,4 @@
-using UnityEditor.Experimental.GraphView;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,6 +28,9 @@ namespace DubbelBubbel.Player
 
 		[SerializeField]
 		private AudioSource footSource;
+
+		[SerializeField]
+		private Animator animator;
 
 		private Vector3 movement = Vector3.zero;
 		private float rotation = 0;
@@ -74,6 +77,9 @@ namespace DubbelBubbel.Player
 				footSource.Play();
 			}
 
+			animator.SetFloat("Walking", moveInput.magnitude);
+			animator.SetBool("Jumping", !isOnGround);
+
 			movement = transform.position + (transform.forward * moveInput.y * speed * Time.fixedDeltaTime);
 			rotation = (moveInput.x * rotationSpeed) * Time.fixedDeltaTime;
 		}
@@ -102,6 +108,7 @@ namespace DubbelBubbel.Player
 		{
 			return footSteps[Random.Range(0, footSteps.Length)];
 		}
+
 		private void OnCollisionExit(Collision collision)
 		{
 			isOnGround = false;
