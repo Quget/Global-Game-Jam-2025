@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 
 	public void EndGame()
 	{
+		UIManager.instance.ShowText("It was fun and interesting to explore other people their bubbles. Let's do that again!");
 		UIManager.instance.ShowGameOver();
 	}
 
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
 		{
 			UIManager.instance.ShowText("I didn't focus enough on other peoples bubbles. I guess I am too much in my own bubble");
 			Destroy(player.gameObject);
+			playerDied = true;
 
 		}
 	}
