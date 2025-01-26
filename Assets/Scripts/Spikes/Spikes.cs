@@ -10,7 +10,7 @@ public class Spikes : MonoBehaviour
 
 	private float hurtCooldown = 2;
 	private float hurtTime = 0;
-	private bool canHurt = false;
+	private bool canHurt = true;
 
 	private Player player;
 
@@ -48,7 +48,7 @@ public class Spikes : MonoBehaviour
 	{
 		if (!canHurt && !isInBubble)
 		{
-			if(collision.collider.transform.parent.gameObject == player.gameObject)
+			if(collision.collider.transform.gameObject == player.gameObject)
 			{
 				player.GetComponent<Rigidbody>().AddForce(Vector3.up * forceMultiplier);
 				canHurt = true;
