@@ -98,6 +98,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceToBeInRange: 2
   levelToLoad: 1
+  isLastLevel: 0
+  didNotCollectEverythingText: Can you please gather balloons for me? I will feel
+    safer.
 --- !u!54 &7775998670895378198
 Rigidbody:
   m_ObjectHideFlags: 0

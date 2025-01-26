@@ -13,6 +13,9 @@ public class LevelSwitcherNpc : MonoBehaviour
 	[SerializeField]
 	private bool isLastLevel = false;
 
+	[SerializeField]
+	private string didNotCollectEverythingText = string.Empty;
+
 	private Player player;
 
 	private void Awake()
@@ -47,6 +50,15 @@ public class LevelSwitcherNpc : MonoBehaviour
 
 		return false;
 	}
+
+	public void Speak()
+	{
+		if (!string.IsNullOrEmpty(didNotCollectEverythingText))
+		{
+			UIManager.instance.ShowText(didNotCollectEverythingText);
+		}
+	}
+
 	public void LoadLevel()
 	{
 		//Check reqruirements and load next level!

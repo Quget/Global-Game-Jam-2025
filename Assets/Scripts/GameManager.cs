@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
 
 	public GameData gameData;
 
+	private bool playerDied = false;
+	private float timeToEnd = 5;
+	private float endTimer = 0;
+
 	private void Awake()
 	{
 		if(instance == null)
@@ -34,6 +38,19 @@ public class GameManager : MonoBehaviour
 		
 	}
 
+	private void Update()
+	{
+		if (playerDied)
+		{
+			endTimer += Time.deltaTime;
+			if(endTimer > timeToEnd)
+			{
+				ResetGame();
+
+			}
+		}
+	}
+
 	void OnDisable()
 	{
 		if (instance == this)
@@ -49,6 +66,7 @@ public class GameManager : MonoBehaviour
 
 	public void ResetGame()
 	{
+		playerDied = false;
 		Instance.gameData.OnPlayerDeath -= GameData_OnPlayerDeath;
 		Instance.gameData = new GameData();//reset;
 		gameData.OnPlayerDeath += GameData_OnPlayerDeath;
@@ -60,7 +78,10 @@ public class GameManager : MonoBehaviour
 		var player = Object.FindFirstObjectByType<Player>();
 		if (player != null && !player.IsDestroyed())
 		{
+			UIManager.instance.ShowText("I didn't focus enough on other peoples bubbles. I guess I am too much in my own bubble");
 			Destroy(player.gameObject);
+
 		}
 	}
+
 }

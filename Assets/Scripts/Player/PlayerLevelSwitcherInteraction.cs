@@ -15,9 +15,16 @@ public class PlayerLevelSwitcherInteraction : MonoBehaviour
 	private void InteractAction_performed(InputAction.CallbackContext obj)
 	{
 		var npc = GetLevelSwitcherNpcInRange();
-		if (npc != null && GameManager.Instance.gameData.ItemsInWorld.Count == 0)
+		if (npc != null)
 		{
-			npc.LoadLevel();
+			if (GameManager.Instance.gameData.ItemsInWorld.Count == 0)
+			{
+				npc.LoadLevel();
+			}
+			else
+			{
+				npc.Speak();
+			}
 		}
 	}
 

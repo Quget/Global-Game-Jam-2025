@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: levelToLoad
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4752515614703282885, guid: fc5c28049c4327947b49545d77f91583, type: 3}
+      propertyPath: didNotCollectEverythingText
+      value: Can you please gather insect spray for me? So I can kill the bugs
+      objectReference: {fileID: 0}
     - target: {fileID: 6272706394877546746, guid: fc5c28049c4327947b49545d77f91583, type: 3}
       propertyPath: m_Name
       value: NPC1
