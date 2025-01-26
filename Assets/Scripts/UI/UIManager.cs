@@ -61,7 +61,8 @@ public class UIManager : MonoBehaviour
 
     void OnInputSystemEvent(UnityEngine.InputSystem.LowLevel.InputEventPtr eventPtr, InputDevice device)
     {
-        if (device is UnityEngine.InputSystem.XInput.XInputController && usingKeyboard)
+        //device.description.deviceClass.Equals("Keyboard");
+        if (!device.description.deviceClass.Equals("Keyboard") &&!device.description.deviceClass.Equals("Mouse") && usingKeyboard)
         {
             usingKeyboard = false;
 
