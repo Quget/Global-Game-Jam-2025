@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7971122143593585440, guid: c87669b274041414199c9180cf23e2a4, type: 3}
       propertyPath: m_Name
-      value: Characters Variant
+      value: Bubble Boy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
