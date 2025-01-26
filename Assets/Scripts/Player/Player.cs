@@ -12,9 +12,12 @@ namespace DubbelBubbel.Player
 
 		private Vector3 spawnPosition = Vector3.zero;
 
+		private Quaternion spawnRotation = Quaternion.identity;
+
 		private void Awake()
 		{
 			spawnPosition = transform.position;
+			spawnRotation = transform.rotation;
 			rigidbody = GetComponent<Rigidbody>();
 		}
 
@@ -30,8 +33,13 @@ namespace DubbelBubbel.Player
 			{
 				DoDamage();
 				rigidbody.linearVelocity = Vector3.zero;
+				rigidbody.angularVelocity = Vector3.zero;
+
 				transform.position = spawnPosition;
 				rigidbody.position = spawnPosition;
+
+				transform.rotation = spawnRotation;
+				rigidbody.rotation = spawnRotation;
 			}
 		}
 	}

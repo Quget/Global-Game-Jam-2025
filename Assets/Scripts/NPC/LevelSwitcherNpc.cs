@@ -38,9 +38,7 @@ public class LevelSwitcherNpc : MonoBehaviour
 		var distance = Vector3.Distance(otherTransform.position, transform.position);
 		if (distance < distanceToBeInRange)
 		{
-			Debug.Log(distance);
 			float dot = Vector3.Dot(transform.forward, (otherTransform.position - transform.position).normalized);
-			Debug.Log(dot);
 			if (dot > 0.65f)
 			{
 				return true;

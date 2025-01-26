@@ -17,7 +17,6 @@ public class PlayerLevelSwitcherInteraction : MonoBehaviour
 		var npc = GetLevelSwitcherNpcInRange();
 		if (npc != null && GameManager.Instance.gameData.ItemsInWorld.Count == 0)
 		{
-			Debug.Log("NPC!!!");
 			npc.LoadLevel();
 		}
 	}
