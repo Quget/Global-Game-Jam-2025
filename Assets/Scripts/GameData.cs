@@ -96,7 +96,9 @@ public class GameData
 
     public void PickUpPowerUp()
     {
-        powerUp += 1;
+        if (powerUp < 3) {
+            powerUp += 1;
+        }
     }
 
     private List<Item> inventory = new List<Item>();
