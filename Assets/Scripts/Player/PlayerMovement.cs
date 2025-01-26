@@ -83,9 +83,10 @@ namespace DubbelBubbel.Player
 			{
 				for (int i = 0; i < collision.contacts.Length; i++)
 				{
-					if (Vector3.Angle(collision.contacts[i].normal, Vector3.up) < 60)
+					if (Vector3.Angle(collision.contacts[i].normal, Vector3.up) < 80)
 					{
 						isOnGround = true;
+						break;
 					}
 				}
 			}

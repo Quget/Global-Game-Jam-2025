@@ -64,6 +64,12 @@ namespace DubbelBubbel.Enemies
 				{
 					movement = transform.position + (transform.forward * speed * Time.fixedDeltaTime);
 				}
+				else
+				{
+					animator.SetFloat("Walking", 0);
+                    playerFound = false;
+                }
+
 				playerFound = true;
 			}
 
@@ -71,8 +77,8 @@ namespace DubbelBubbel.Enemies
 			{
 				transform.LookAt(player.transform.position);
 				transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-			}
-			animator.SetFloat("Walking", movement.normalized.magnitude);
+                animator.SetFloat("Walking", movement.normalized.magnitude);
+            }
 			rigedbody.MovePosition(movement);
 		}
 
@@ -84,7 +90,6 @@ namespace DubbelBubbel.Enemies
 				{
 					for (int i = 0; i < collision.contacts.Length; i++)
 					{
-						Debug.Log(Vector3.Angle(collision.contacts[i].normal, Vector3.up));
 						if (Vector3.Angle(collision.contacts[i].normal, Vector3.up) > 140)
 						{
 							Destroy(this.gameObject);
