@@ -375,6 +375,12 @@ MonoBehaviour:
   powerupUI: {fileID: 6044195620773789073}
   tutorialUI: {fileID: 8886360687146730572}
   gameOverUI: {fileID: 6181620092736116533}
+  prompts:
+  - {fileID: 5566422511688266205}
+  - {fileID: 7096167811038731384}
+  - {fileID: 7584674590005902662}
+  - {fileID: 8217377850378313220}
+  - {fileID: 867115848660326742}
 --- !u!1 &1365647958979179582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1114,7 @@ MonoBehaviour:
   keyboardTutorial: '<size=8>E</size>
 
     <b>Pickup</b>'
-  controllerTutorial: '<size=8></size>
+  controllerTutorial: '<size=8>Y</size>
 
     <b>Pickup</b>'
 --- !u!1 &5812485873762988975
@@ -1957,7 +1963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d75a9fd10f67234d8c11a9087839109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboardTutorial: '<size=8></size>
+  keyboardTutorial: '<size=8>E</size>
 
     <b>Interact</b>'
   controllerTutorial: '<size=8>Y</size>
