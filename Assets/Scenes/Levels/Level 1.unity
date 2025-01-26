@@ -3142,7 +3142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 1266146837}
-  positionOffset: {x: 0, y: 3, z: -3}
+  positionOffset: {x: 0, y: 3, z: -5}
   rotationOffset: {x: 20, y: 0, z: 0}
   speed: 25
   rotationSpeed: 25
