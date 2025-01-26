@@ -72,7 +72,9 @@ public class Spikes : MonoBehaviour
 						UpdateBubbleEnclosure();
 					});
 				}
-			} else {
+			}
+			else if (bubble != null)
+			{
 				Destroy(bubble.gameObject);
 			}
 		
