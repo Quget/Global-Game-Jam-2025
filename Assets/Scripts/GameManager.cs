@@ -1,6 +1,7 @@
 using DubbelBubbel.Player;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,31 +10,55 @@ public class GameManager : MonoBehaviour
 
 	public GameData gameData;
 
-	private Player player;
-
 	private void Awake()
 	{
 		if(instance == null)
 		{
 			instance = this;
 			gameData = new GameData();
-			gameData.OnPlayerDeath += GameData_OnPlayerDeath;
-			player = Object.FindFirstObjectByType<Player>();
 			DontDestroyOnLoad(gameObject);
 		}
-	}
 
-	private void OnDestroy()
+		if (Instance != this)
+		{
+			DestroyImmediate(gameObject);
+		}
+
+	}
+	void OnEnable()
 	{
 		if(instance == this)
+		{
+			gameData.OnPlayerDeath += GameData_OnPlayerDeath;
+		}
+		
+	}
+
+	void OnDisable()
+	{
+		if (instance == this)
 		{
 			gameData.OnPlayerDeath -= GameData_OnPlayerDeath;
 		}
 	}
 
+	public void EndGame()
+	{
+		ResetGame();
+	}
+
+	private void ResetGame()
+	{
+		Instance.gameData.OnPlayerDeath -= GameData_OnPlayerDeath;
+		Instance.gameData = new GameData();//reset;
+		gameData.OnPlayerDeath += GameData_OnPlayerDeath;
+		SceneManager.LoadScene(0);
+	}
+
 	private void GameData_OnPlayerDeath(object sender, System.EventArgs e)
 	{
-		if (!player.IsDestroyed())
+		var player = Object.FindFirstObjectByType<Player>();
+		if (player != null && !player.IsDestroyed())
 		{
 			Destroy(player.gameObject);
 		}

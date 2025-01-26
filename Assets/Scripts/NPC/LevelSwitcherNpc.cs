@@ -10,6 +10,9 @@ public class LevelSwitcherNpc : MonoBehaviour
 	[SerializeField]
 	private int levelToLoad = 0;
 
+	[SerializeField]
+	private bool isLastLevel = false;
+
 	private Player player;
 
 	private void Awake()
@@ -50,7 +53,13 @@ public class LevelSwitcherNpc : MonoBehaviour
 	{
 		//Check reqruirements and load next level!
 		//Or show game over screen at the end?
-		SceneManager.LoadScene(levelToLoad);
-
+		if (!isLastLevel)
+		{
+			SceneManager.LoadScene(levelToLoad);
+		}
+		else
+		{
+			GameManager.Instance.EndGame();
+		}
 	}
 }
