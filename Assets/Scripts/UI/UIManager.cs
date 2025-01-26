@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -6,11 +7,36 @@ public class UIManager : MonoBehaviour
     public PowerupUI powerupUI;
     public TutorialUI tutorialUI;
 
+    public TutorialPrompt[] prompts;
+
     public static UIManager instance;
 
-    void Awake()
+    bool usingKeyboard = true;
+
+    void Awake() => instance = this;
+
+    void OnEnable() => InputSystem.onEvent += OnInputSystemEvent;
+    void OnDisable() => InputSystem.onEvent += OnInputSystemEvent;
+
+    void OnInputSystemEvent(UnityEngine.InputSystem.LowLevel.InputEventPtr eventPtr, InputDevice device)
     {
-        instance = this;
+        if (device is UnityEngine.InputSystem.XInput.XInputController && usingKeyboard)
+        {
+            usingKeyboard = false;
+
+            foreach (TutorialPrompt prompt in prompts)
+                prompt.SetControllerControls();
+
+            return;
+        }
+
+        if (device is Keyboard & !usingKeyboard)
+        {
+            usingKeyboard = true;
+
+            foreach (TutorialPrompt prompt in prompts)
+                prompt.SetKeboardControls();
+        }
     }
 
     public void EnablePowerup(int index)

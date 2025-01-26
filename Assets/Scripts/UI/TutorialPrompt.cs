@@ -1,7 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 
 public class TutorialPrompt : MonoBehaviour
 {
@@ -13,25 +11,9 @@ public class TutorialPrompt : MonoBehaviour
     void Awake()
     {
         text = GetComponent<TextMeshProUGUI>();
-        text.text = keyboardTutorial;
+        SetKeboardControls();
     }
 
-    // void OnEnable()
-    // {
-    //     InputUser.onChange += onInputDeviceChange;
-    // }
-
-    // void OnDisable()
-    // {
-    //     InputUser.onChange -= onInputDeviceChange;
-    // }
-
-    void onInputDeviceChange(InputUser user, InputUserChange change, InputDevice device)
-    {
-        // Debug.Log("updates!");
-        // if (change == InputUserChange.ControlSchemeChanged)
-        // {
-        //     Debug.LogWarning(device.name);
-        // }
-    }
+    public void SetKeboardControls() => text.text = keyboardTutorial;
+    public void SetControllerControls() => text.text = controllerTutorial;
 }

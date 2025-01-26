@@ -325,6 +325,12 @@ MonoBehaviour:
   healthUI: {fileID: 9162515821140741080}
   powerupUI: {fileID: 6044195620773789073}
   tutorialUI: {fileID: 8886360687146730572}
+  prompts:
+  - {fileID: 5566422511688266205}
+  - {fileID: 7096167811038731384}
+  - {fileID: 7584674590005902662}
+  - {fileID: 8217377850378313220}
+  - {fileID: 867115848660326742}
 --- !u!1 &2673029070230608858
 GameObject:
   m_ObjectHideFlags: 0
