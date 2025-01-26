@@ -1,3 +1,4 @@
+using DubbelBubbel.Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -33,7 +34,17 @@ namespace DubbelBubbel.Player
             {
                 if (targetObject.IsDestroyed())
                 {
-                    return FindFirstObjectByType<LevelSwitcherNpc>().transform.position;
+
+                    var bug = FindFirstObjectByType<Bug>();
+                    if(bug != null)
+                    {
+                        return bug.transform.position;
+                    }
+                    else
+                    {
+						return FindFirstObjectByType<LevelSwitcherNpc>().transform.position;
+					}
+
                 }
                 return targetObject.transform.position;
             }
@@ -44,6 +55,8 @@ namespace DubbelBubbel.Player
             {
 				if (targetObject.IsDestroyed())
 				{
+
+
                     return FindFirstObjectByType<LevelSwitcherNpc>().transform.rotation;
 				}
                 return targetObject.transform.rotation;

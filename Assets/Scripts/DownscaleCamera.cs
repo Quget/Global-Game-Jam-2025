@@ -6,7 +6,13 @@ public class DownscaleCamera : MonoBehaviour
     public Vector2Int resolution = new Vector2Int(240, 135);
     public Material backgroundMaterial;
 
-    void Start()
+
+    private Canvas canvas;
+    private Image backgroundImage;
+    private RawImage renderImage;
+
+
+	void Start()
     {
         RenderTexture pixelTexture = CreatePixelCamera();
         SetupCanvas(pixelTexture);
@@ -31,28 +37,49 @@ public class DownscaleCamera : MonoBehaviour
         return pixelCamera.targetTexture = renderTexture;
     }
 
+	private void LateUpdate()
+	{ 
+        if(backgroundImage != null)
+        {
+            if (backgroundImage.rectTransform.sizeDelta.x != Camera.main.pixelWidth ||
+				backgroundImage.rectTransform.sizeDelta.y != Camera.main.pixelHeight)
+            {
+                UpdateBackGroundBarsSize();
+                UpdateRenderSize();
+			}
+        }
+	}
+
+	private void UpdateBackGroundBarsSize()
+    {
+		backgroundImage.rectTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
+	}
+
+    private void UpdateRenderSize()
+    {
+		renderImage.rectTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
+
+		renderImage.transform.localScale = new Vector3(((float)resolution.x / (float)resolution.y) / ((float)Camera.main.pixelWidth / (float)Camera.main.pixelHeight), 1f, 1f);
+	}
     void SetupCanvas(RenderTexture pixelTexture)
     {
-        Canvas canvas = new GameObject("PixelCanvas").AddComponent<Canvas>();
+        canvas = new GameObject("PixelCanvas").AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.vertexColorAlwaysGammaSpace = true;
 
-        Image backgroundImage = new GameObject("Background Bars").AddComponent<Image>();
-        backgroundImage.transform.SetParent(canvas.transform);
+        backgroundImage = new GameObject("Background Bars").AddComponent<Image>();
+		backgroundImage.transform.SetParent(canvas.transform);
         backgroundImage.transform.localPosition = Vector3.zero;
-        backgroundImage.rectTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
+		// backgroundImage.color = Color.black;
+		backgroundImage.material = backgroundMaterial;
+		UpdateBackGroundBarsSize();
 
-        // backgroundImage.color = Color.black;
-        backgroundImage.material = backgroundMaterial;
-
-        RawImage renderImage = new GameObject("Pixel Result").AddComponent<RawImage>();
+		renderImage = new GameObject("Pixel Result").AddComponent<RawImage>();
         renderImage.transform.SetParent(canvas.transform);
         renderImage.transform.localPosition = Vector3.zero;
 
-        renderImage.rectTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
+        UpdateRenderSize();
 
-        renderImage.transform.localScale = new Vector3(((float)resolution.x / (float)resolution.y) / ((float)Camera.main.pixelWidth / (float)Camera.main.pixelHeight), 1f, 1f);
-
-        renderImage.texture = pixelTexture;
+		renderImage.texture = pixelTexture;
     }
 }
