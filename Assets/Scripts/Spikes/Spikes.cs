@@ -48,7 +48,7 @@ public class Spikes : MonoBehaviour
 	{
 		if (!canHurt && !isInBubble)
 		{
-			if(collision.collider.transform.parent.gameObject == player.gameObject)
+			if(collision.collider.transform.gameObject == player.gameObject)
 			{
 				player.GetComponent<Rigidbody>().AddForce(Vector3.up * forceMultiplier);
 				canHurt = true;
