@@ -18,21 +18,41 @@ public class GameManager : MonoBehaviour
 			gameData = new GameData();
 			DontDestroyOnLoad(gameObject);
 		}
+
+		if (Instance != this)
+		{
+			DestroyImmediate(gameObject);
+		}
+
 	}
-	// called second
 	void OnEnable()
 	{
-		gameData.OnPlayerDeath += GameData_OnPlayerDeath;
+		if(instance == this)
+		{
+			gameData.OnPlayerDeath += GameData_OnPlayerDeath;
+		}
+		
 	}
 
 	void OnDisable()
 	{
-		gameData.OnPlayerDeath -= GameData_OnPlayerDeath;
+		if (instance == this)
+		{
+			gameData.OnPlayerDeath -= GameData_OnPlayerDeath;
+		}
 	}
 
 	public void EndGame()
 	{
-		Debug.Log("End Game");
+		ResetGame();
+	}
+
+	private void ResetGame()
+	{
+		Instance.gameData.OnPlayerDeath -= GameData_OnPlayerDeath;
+		Instance.gameData = new GameData();//reset;
+		gameData.OnPlayerDeath += GameData_OnPlayerDeath;
+		SceneManager.LoadScene(0);
 	}
 
 	private void GameData_OnPlayerDeath(object sender, System.EventArgs e)
